@@ -16,8 +16,8 @@
 # - Если передан один параметр, также считаем start=1.
 
 
-
 import json
+
 
 class MyFactorial:
     """
@@ -28,7 +28,7 @@ class MyFactorial:
     def __init__(self, k, file_name='output.json'):
         self.k = k
         self.file_name = file_name
-        self._cache = {}   # Кэш для вычисленных ранее значений
+        self._cache = {}  # Кэш для вычисленных ранее значений
 
     def _factorial(self, k: int) -> int:
         """
@@ -82,10 +82,15 @@ class MyFactorial:
 
 
 class MyRangeFactorial(MyFactorial):
+    """
+    Итеративный класс для вычисления факториала
+    :param args: start, stop, step
+    """
+
     def __init__(self, *args):
         """
-        Итеративный класс для вычисления факториала
-        :param args: start, stop, step
+        Инициализация с различным количеством аргументов
+        :param args:
         """
         self._start = 1
         self._step = 1
@@ -104,15 +109,28 @@ class MyRangeFactorial(MyFactorial):
         if self._start > self._stop:
             raise ValueError('Начальное значение больше конечного')
         self._current = self._start
-        super().__init__(self._stop)
+        super().__init__(self._stop)  # Сразу же вычисляем все значения факториала (они сохранятся в кэше)
 
     def __str__(self):
+        """
+        Возвращаем значение факториала последнего члена в итерациях
+        :return:
+        """
         return f'{super()._factorial(self._stop)}'
 
     def __iter__(self):
+        """
+        Необходимо для итерируемого класса
+        :return:
+        """
         return self
 
     def __next__(self):
+        """
+        Один шаг итерации. Последовательно вычисляем значения факториала,
+        и контролируем шаг текущей переменной
+        :return:
+        """
         if self._current < self._stop:
             tmp = super()._factorial(self._current)
             self._current += self._step

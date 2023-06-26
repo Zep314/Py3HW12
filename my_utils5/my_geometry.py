@@ -6,7 +6,7 @@
 # Добавьте возможность сложения и вычитания.
 # При этом должен создаваться новый экземпляр
 # прямоугольника.
-# Складываем и вычитаем периметры, а не длинну и ширину.
+# Складываем и вычитаем периметры, а не длину и ширину.
 # При вычитании не допускайте отрицательных значений.
 
 # Добавьте сравнение прямоугольников по площади
@@ -89,7 +89,7 @@ class MyRectangle:
         :return:
         """
         new_perimetr = abs(self.rectangle_len() - other.rectangle_len())
-        new_width = min(self._width, self._height, other._width, other._height)
+        new_width = min(self._width, self._height, other.width, other.height)
         new_height = new_perimetr / 2 - new_width
         return MyRectangle(new_width, new_height)
 
@@ -155,18 +155,31 @@ class MyRectangle:
         """
         return f'Прямоугольник {self._width} x {self._height}'
 
-    ### Дорабатываем класс - изменяем длину и ширину с проверкой
+    # Дорабатываем класс - изменяем длину и ширину с проверкой
 
     @property
     def width(self):
+        """
+        Геттер ширины
+        :return:
+        """
         return self._width
 
     @property
     def height(self):
+        """
+        Геттер высоты
+        :return:
+        """
         return self._height
 
     @width.setter
     def width(self, value):
+        """
+        Сеттер ширины с проверкой
+        :param value:
+        :return:
+        """
         if value > 0:
             self._width = value
         else:
@@ -174,6 +187,11 @@ class MyRectangle:
 
     @height.setter
     def height(self, value):
+        """
+        Сеттер высоты с проверкой
+        :param value:
+        :return:
+        """
         if value > 0:
             self._height = value
         else:
